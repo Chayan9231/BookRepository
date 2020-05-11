@@ -9,18 +9,20 @@ import com.book.repository.BooksRepository;
 
 @Service
 public class BooksService {
+
 	@Autowired
 	BooksRepository booksRepository;
 
+	Book book = null;
+
 	public Iterable<Book> getAllBooks() {
-		//List<Book> books = new ArrayList<Book>();
-		//booksRepository.findAll().forEach(books1 -> books.add(books1));
+		// List<Book> books = new ArrayList<Book>();
+		// booksRepository.findAll().forEach(books1 -> books.add(books1));
 		return booksRepository.findAll();
 	}
 
 	public Book getBooksById(int id) {
 
-		Book book = null;
 		try {
 			book = booksRepository.findById(id).get();
 		} catch (Exception e) {
@@ -28,24 +30,44 @@ public class BooksService {
 		}
 		return book;
 	}
-	
+
 	public Book getBooksByBookName(String bookName) {
 
-		Book book = null;
 		try {
-			//book = booksRepository.findbookByBookName(bookName);
+			 book = booksRepository.findbookByBookName(bookName);
 		} catch (Exception e) {
-			throw new BookNotFoundException("Book Not Found : " + bookName);
+			throw new BookNotFoundException("Book Not Found with this " + bookName);
 		}
 		return book;
 	}
+    
+	public Book getBooksByAuthorName(String authorName) {
 
+		try {
+			 book = booksRepository.findbookByAuthor(authorName);
+		} catch (Exception e) {
+			throw new BookNotFoundException("Book Not Found with this  " + authorName);
+		}
+		return book;
+	}
+	
 	public void saveOrUpdate(Book books) {
 		booksRepository.save(books);
 	}
 
 	public void delete(int id) {
-		booksRepository.deleteById(id);
+		try {
+			book = booksRepository.findById(id).get();
+	        if (book == null) {
+	        	throw new BookNotFoundException("Book Not Found : " + id);
+	        }
+	        else{
+	        	booksRepository.deleteById(id);
+	        }
+			
+		} catch (Exception e) {
+			throw new BookNotFoundException("Book Not Found : " + id);
+		}
 	}
 
 	public void update(Book books, int bookid) {

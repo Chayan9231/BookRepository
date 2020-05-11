@@ -3,14 +3,16 @@ package com.book.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity(name = "Book")
+
 public class Book {
 	
 	@Id
-	@GeneratedValue 
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
 	private int bookid;
 	@Column

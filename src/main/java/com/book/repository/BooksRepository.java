@@ -7,6 +7,9 @@ import com.book.model.Book;
 
 public interface BooksRepository extends CrudRepository<Book, Integer> {
 	
-	//@Query("SELECT book FROM Book book WHERE book.bookname = ?1")
-	 //Books findbookByBookName(String name);
+	@Query("SELECT book FROM Book book WHERE book.bookname = ?1")
+	 Book findbookByBookName(String name);
+	
+	@Query("SELECT book FROM Book book WHERE book.author = ?1")
+	 Book findbookByAuthor(String authorName);
 }

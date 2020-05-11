@@ -34,11 +34,15 @@ public class BooksController {
 		return booksService.getBooksById(bookid);
 	}
 	
-	/*@GetMapping("/book/{bookname}")
-	private Books getBooksbyName(@PathVariable("bookname") String bookName) {
+	@GetMapping("/bookDetailsbyName/{bookname}")
+	private Book getBooksbyName(@PathVariable("bookname") String bookName) {
 		return booksService.getBooksByBookName(bookName);
-	}*/
-
+	}
+   
+	@GetMapping("/bookDetailsbyAuthor/{authorName}")
+	private Book getBooksbyAuthorName(@PathVariable("author") String author) {
+		return booksService.getBooksByAuthorName(author);
+	}
 	
 	@DeleteMapping("/deleteBook/{bookid}")
 	private ResponseEntity<?>  deleteBook(@PathVariable("bookid") int bookid) {
