@@ -1,12 +1,10 @@
 package com.book.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.book.exception.BookNotFoundException;
-import com.book.model.Books;
+import com.book.model.Book;
 import com.book.repository.BooksRepository;
 
 @Service
@@ -14,15 +12,15 @@ public class BooksService {
 	@Autowired
 	BooksRepository booksRepository;
 
-	public List<Books> getAllBooks() {
-		List<Books> books = new ArrayList<Books>();
-		booksRepository.findAll().forEach(books1 -> books.add(books1));
-		return books;
+	public Iterable<Book> getAllBooks() {
+		//List<Book> books = new ArrayList<Book>();
+		//booksRepository.findAll().forEach(books1 -> books.add(books1));
+		return booksRepository.findAll();
 	}
 
-	public Books getBooksById(int id) {
+	public Book getBooksById(int id) {
 
-		Books book = null;
+		Book book = null;
 		try {
 			book = booksRepository.findById(id).get();
 		} catch (Exception e) {
@@ -30,8 +28,19 @@ public class BooksService {
 		}
 		return book;
 	}
+	
+	public Book getBooksByBookName(String bookName) {
 
-	public void saveOrUpdate(Books books) {
+		Book book = null;
+		try {
+			//book = booksRepository.findbookByBookName(bookName);
+		} catch (Exception e) {
+			throw new BookNotFoundException("Book Not Found : " + bookName);
+		}
+		return book;
+	}
+
+	public void saveOrUpdate(Book books) {
 		booksRepository.save(books);
 	}
 
@@ -39,7 +48,7 @@ public class BooksService {
 		booksRepository.deleteById(id);
 	}
 
-	public void update(Books books, int bookid) {
+	public void update(Book books, int bookid) {
 		booksRepository.save(books);
 	}
 }

@@ -9,46 +9,55 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.book.model.Books;
+import com.book.model.Book;
 import com.book.service.BooksService;
 
 
 @RestController
+@RequestMapping(value = "/book")
 public class BooksController {
 	
 	@Autowired
 	BooksService booksService;
 
 	
-	@GetMapping("/book")
-	private List<Books> getAllBooks() {
+	@GetMapping("/getAllBooks")
+	private Iterable<Book> getAllBooks() {
 		return booksService.getAllBooks();
 	}
 
-	@GetMapping("/book/{bookid}")
-	private Books getBooks(@PathVariable("bookid") int bookid) {
+	@GetMapping("/bookDetails/{bookid}")
+	private Book getBooks(@PathVariable("bookid") int bookid) {
 		return booksService.getBooksById(bookid);
 	}
+	
+	/*@GetMapping("/book/{bookname}")
+	private Books getBooksbyName(@PathVariable("bookname") String bookName) {
+		return booksService.getBooksByBookName(bookName);
+	}*/
 
 	
-	@DeleteMapping("/book/{bookid}")
-	private void deleteBook(@PathVariable("bookid") int bookid) {
+	@DeleteMapping("/deleteBook/{bookid}")
+	private ResponseEntity<?>  deleteBook(@PathVariable("bookid") int bookid) {
 		booksService.delete(bookid);
+		return ResponseEntity.ok("Book deleted successfully");
 	}
 
 	
-	@PostMapping("/books")
-	private ResponseEntity<?> saveBook(@RequestBody Books books) {
+	@PostMapping("/createBook")
+	private ResponseEntity<?> saveBook(@RequestBody Book books) {
 		booksService.saveOrUpdate(books);
 		return ResponseEntity.ok("Book saved");
 	}
 
 	
-	@PutMapping("/books")
-	private Books update(@RequestBody Books books) {
-		booksService.saveOrUpdate(books);
+	@PutMapping("/updateBook/{bookid}")
+	private Book update(@RequestBody Book books,@PathVariable("bookid") int bookid) {
+		//booksService.saveOrUpdate(books);
+		booksService.update(books, bookid);
 		return books;
 	}
 	
