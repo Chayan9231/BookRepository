@@ -33,24 +33,22 @@ public class BooksService {
 
 	public Book getBooksByBookName(String bookName) {
 
-		try {
-			 book = booksRepository.findbookByBookName(bookName);
-		} catch (Exception e) {
-			throw new BookNotFoundException("Book Not Found with this " + bookName);
+		book = booksRepository.findbookByBookName(bookName);
+		if (book == null) {
+			throw new BookNotFoundException("Book Not Found with this bookname " + bookName);
 		}
 		return book;
 	}
-    
+
 	public Book getBooksByAuthorName(String authorName) {
 
-		try {
-			 book = booksRepository.findbookByAuthor(authorName);
-		} catch (Exception e) {
-			throw new BookNotFoundException("Book Not Found with this  " + authorName);
+		book = booksRepository.findbookByAuthor(authorName);
+		if (book == null) {
+			throw new BookNotFoundException("Book Not Found with this authorName " + authorName);
 		}
 		return book;
 	}
-	
+
 	public void saveOrUpdate(Book books) {
 		booksRepository.save(books);
 	}
@@ -58,19 +56,24 @@ public class BooksService {
 	public void delete(int id) {
 		try {
 			book = booksRepository.findById(id).get();
-	        if (book == null) {
-	        	throw new BookNotFoundException("Book Not Found : " + id);
-	        }
-	        else{
-	        	booksRepository.deleteById(id);
-	        }
-			
+			if (book == null) {
+				throw new BookNotFoundException("Book Not Found : " + id);
+			} else {
+				booksRepository.deleteById(id);
+			}
+
 		} catch (Exception e) {
 			throw new BookNotFoundException("Book Not Found : " + id);
 		}
 	}
 
 	public void update(Book books, int bookid) {
-		booksRepository.save(books);
+
+		Book bookFromDB = booksRepository.findById(bookid).get();
+
+		bookFromDB = books;
+
+		booksRepository.save(bookFromDB);
+
 	}
 }
