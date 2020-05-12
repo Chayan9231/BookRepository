@@ -71,7 +71,10 @@ public class BooksService {
 
 		Book bookFromDB = booksRepository.findById(bookid).get();
 
-		bookFromDB = books;
+		bookFromDB.setAuthor(books.getAuthor());
+		bookFromDB.setBookid(bookFromDB.getBookid());
+		bookFromDB.setBookname(books.getBookname());
+		bookFromDB.setPrice(books.getPrice());
 
 		booksRepository.save(bookFromDB);
 
