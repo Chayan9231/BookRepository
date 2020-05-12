@@ -28,7 +28,7 @@ public class BooksService {
 		} catch (Exception e) {
 			throw new BookNotFoundException("Book Not Found : " + id);
 		}
-		return book;
+		return book; 
 	}
 
 	public Book getBooksByBookName(String bookName) {
@@ -40,13 +40,13 @@ public class BooksService {
 		return book;
 	}
 
-	public Book getBooksByAuthorName(String authorName) {
-
-		book = booksRepository.findbookByAuthor(authorName);
-		if (book == null) {
+	public Iterable<Book> getBooksByAuthorName(String authorName) {
+		
+		Iterable<Book> bookByAuthor = booksRepository.findbookByAuthor(authorName);
+		if (bookByAuthor == null) {
 			throw new BookNotFoundException("Book Not Found with this authorName " + authorName);
 		}
-		return book;
+		return bookByAuthor;
 	}
 
 	public void saveOrUpdate(Book books) {

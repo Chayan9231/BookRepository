@@ -40,7 +40,7 @@ public class BooksController {
 	}
    
 	@GetMapping("/bookDetailsbyAuthor/{authorName}")
-	private Book getBooksbyAuthorName(@PathVariable("authorName") String author) {
+	private Iterable<Book> getBooksbyAuthorName(@PathVariable("authorName") String author) {
 		return booksService.getBooksByAuthorName(author);
 	}
 	
@@ -59,10 +59,10 @@ public class BooksController {
 
 	
 	@PutMapping("/updateBook/{bookid}")
-	private Book update(@RequestBody Book books,@PathVariable("bookid") int bookid) {
+	private ResponseEntity<String> update(@RequestBody Book books,@PathVariable("bookid") int bookid) {
 		//booksService.saveOrUpdate(books);
 		booksService.update(books, bookid);
-		return books;
+		return ResponseEntity.ok("Update Successfully");
 	}
 	
 	
