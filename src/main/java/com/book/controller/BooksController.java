@@ -42,6 +42,7 @@ public class BooksController {
 	@GetMapping("/bookDetailsbyAuthor/{authorName}")
 	private Iterable<Book> getBooksbyAuthorName(@PathVariable("authorName") String author) {
 		return booksService.getBooksByAuthorName(author);
+		
 	}
 	
 	@DeleteMapping("/deleteBook/{bookid}")
