@@ -14,10 +14,7 @@ public interface BooksRepository extends CrudRepository<Book, Integer> {
 	@Query(value="select * from Book book where book.author like %:author%" , nativeQuery=true)  
 	Iterable<Book> findbookByAuthor(@Param("author") String author);
 	
-	/*
-	 * @Query("SELECT book FROM Book book WHERE book.author = ?1") Book
-	 * findbookByAuthor(String authorName);
-	 */
+
 }
 
 
