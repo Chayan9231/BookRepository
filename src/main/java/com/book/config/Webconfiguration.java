@@ -12,7 +12,7 @@ public class Webconfiguration {
 	@Bean
 	ServletRegistrationBean  h2servletRegistration() {
 		ServletRegistrationBean registrationBean  = new ServletRegistrationBean(new WebServlet()); 
-		registrationBean.addUrlMappings("/console/*");
+		registrationBean.addUrlMappings("/h2DatabaseView/*");
 		return registrationBean;
 		
 	}
