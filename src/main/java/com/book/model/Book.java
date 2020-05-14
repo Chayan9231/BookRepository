@@ -7,8 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name = "Book")
+import lombok.Getter;
+import lombok.Setter;
 
+@Entity(name = "Book")
+@Getter @Setter
 public class Book {
 	
 	@Id
@@ -22,7 +25,7 @@ public class Book {
 	@Column
 	private int price;
 
-	public int getBookid() {
+	/*public int getBookid() {
 		return bookid;
 	}
 
@@ -52,5 +55,5 @@ public class Book {
 
 	public void setPrice(int price) {
 		this.price = price;
-	}
+	}*/
 }
