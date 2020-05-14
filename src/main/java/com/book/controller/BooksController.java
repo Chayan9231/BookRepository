@@ -35,7 +35,7 @@ public class BooksController {
 	}
 	
 	@GetMapping("/bookDetailsbyName/{bookname}")
-	private Book getBooksbyName(@PathVariable("bookname") String bookName) {
+	private Iterable<Book> getBooksbyName(@PathVariable("bookname") String bookName) {
 		return booksService.getBooksByBookName(bookName);
 	}
    

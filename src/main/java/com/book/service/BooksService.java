@@ -31,13 +31,13 @@ public class BooksService {
 		return book; 
 	}
 
-	public Book getBooksByBookName(String bookName) {
+	public Iterable<Book> getBooksByBookName(String bookName) {
 
-		book = booksRepository.findbookByBookName(bookName);
+		Iterable<Book> bookByName = booksRepository.findbookByBookName(bookName);
 		if (book == null) {
 			throw new BookNotFoundException("Book Not Found with this bookname " + bookName);
 		}
-		return book;
+		return bookByName;
 	}
 
 	public Iterable<Book> getBooksByAuthorName(String authorName) {
