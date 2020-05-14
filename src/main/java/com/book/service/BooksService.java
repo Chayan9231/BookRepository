@@ -49,11 +49,11 @@ public class BooksService {
 		return bookByAuthor;
 	}
 
-	public void saveOrUpdate(Book books) {
-		booksRepository.save(books);
+	public Book saveOrUpdate(Book books) {
+		return booksRepository.save(books);
 	}
 
-	public void delete(int id) {
+	public Book delete(int id) {
 		try {
 			book = booksRepository.findById(id).get();
 			if (book == null) {
@@ -65,9 +65,10 @@ public class BooksService {
 		} catch (Exception e) {
 			throw new BookNotFoundException("Book Not Found : " + id);
 		}
+		return book;
 	}
 
-	public void update(Book books, int bookid) {
+	public Book update(Book books, int bookid) {
 
 		Book bookFromDB = booksRepository.findById(bookid).get();
 
@@ -76,7 +77,7 @@ public class BooksService {
 		bookFromDB.setBookname(books.getBookname());
 		bookFromDB.setPrice(books.getPrice());
 
-		booksRepository.save(bookFromDB);
+		return booksRepository.save(bookFromDB);
 
 	}
 }
