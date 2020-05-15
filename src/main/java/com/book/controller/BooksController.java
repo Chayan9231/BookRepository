@@ -3,6 +3,8 @@ package com.book.controller;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -80,7 +82,7 @@ public class BooksController {
 	}
 
 	@PostMapping("/createBook")
-	public Resource<Book> saveBook(@RequestBody Book books) {
+	public Resource<Book> saveBook(@Valid @RequestBody Book books) {
 		Book book = booksService.saveOrUpdate(books);
 		log.info("Book Saved Sucessfully");
 		Resource<Book> resource = new Resource<Book>(book);
@@ -90,7 +92,7 @@ public class BooksController {
 	}
 
 	@PutMapping("/updateBook/{bookid}")
-	public Resource<Book> update(@RequestBody Book books, @PathVariable("bookid") int bookid) {
+	public Resource<Book> update(@Valid @RequestBody Book books, @PathVariable("bookid") int bookid) {
 		// booksService.saveOrUpdate(books);
 		Book book = booksService.update(books, bookid);
 		log.info("Book Updated Sucessfully");
