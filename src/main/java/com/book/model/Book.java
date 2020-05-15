@@ -6,51 +6,37 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Range;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity(name = "Book")
-
+@Getter @Setter
 public class Book {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
 	private int bookid;
+	
+	@NotNull
+	@Size(min=1, message="BookName should have atleast 1 characters")
 	@Column
 	private String bookname;
+	
+	@NotNull
+	@Size(min=2, message="AuthorName should have atleast 2 characters")
 	@Column
 	private String author;
+	
+	@NotNull
+	@Range(min = 1)
 	@Column
 	private int price;
 
-	public int getBookid() {
-		return bookid;
-	}
-
-	public void setBookid(int bookid) {
-		this.bookid = bookid;
-	}
-
-	public String getBookname() {
-		return bookname;
-	}
-
-	public void setBookname(String bookname) {
-		this.bookname = bookname;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
+	
 }
