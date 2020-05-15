@@ -16,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.book.BookApplication;
 import com.book.model.Book;
 import com.book.service.BooksService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping(value = "/book")
 public class BooksController {
@@ -68,6 +72,7 @@ public class BooksController {
 	@DeleteMapping("/deleteBook/{bookid}")
 	public Resource<Book> deleteBook(@PathVariable("bookid") int bookid) {
 		Book book = booksService.delete(bookid);
+		log.info("Book Deleted Successfully");
 		Resource<Book> resource = new Resource<Book>(book);
 
 		hateoasLink(resource);
@@ -77,6 +82,7 @@ public class BooksController {
 	@PostMapping("/createBook")
 	public Resource<Book> saveBook(@RequestBody Book books) {
 		Book book = booksService.saveOrUpdate(books);
+		log.info("Book Saved Sucessfully");
 		Resource<Book> resource = new Resource<Book>(book);
 
 		hateoasLink(resource);
@@ -87,6 +93,7 @@ public class BooksController {
 	public Resource<Book> update(@RequestBody Book books, @PathVariable("bookid") int bookid) {
 		// booksService.saveOrUpdate(books);
 		Book book = booksService.update(books, bookid);
+		log.info("Book Updated Sucessfully");
 		Resource<Book> resource = new Resource<Book>(book);
 
 		hateoasLink(resource);
@@ -95,6 +102,7 @@ public class BooksController {
 
 	public void hateoasLink(Resource<Book> resource) {
 
+		log.info("Link Creation Start For Book Pojo Scenario");
 		Book book = null;
 		ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).getAllBooks());
 		ControllerLinkBuilder linkToBookName = linkTo(methodOn(this.getClass()).getBooksbyName("Java"));
@@ -115,6 +123,7 @@ public class BooksController {
 
 	public void hateoasLinkBooks(Resources<Book> resource) {
 
+		log.info("Link Creation Start For Book Collection Scenario");
 		Book book = null;
 		ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).getAllBooks());
 		ControllerLinkBuilder linkToBookName = linkTo(methodOn(this.getClass()).getBooksbyName("Java"));
